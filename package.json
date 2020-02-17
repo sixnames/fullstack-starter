@@ -4,6 +4,10 @@
   "description": "Fullstack project starter",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "prebuild": "rimraf dist",
+    "dev": "ts-node-dev --transpileOnly --no-notify src",
+    "predev": "rimraf dist",
     "test": "jest"
   },
   "repository": {
@@ -13,13 +17,21 @@
   "keywords": [
     "fullstack"
   ],
+  "files": [
+    "dist",
+    "templates"
+  ],
   "author": "sixnames <slava.kirshman@icloud.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sixnames/fullstack-starter/issues"
   },
   "homepage": "https://github.com/sixnames/fullstack-starter#readme",
+  "bin": "./dist/index.js",
   "devDependencies": {
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "ts-jest": "^25.2.0"
   }
 }
