@@ -26,5 +26,5 @@ const createProject = async (message:string) => {
     }
   ]);
   
-  createProject(answer.file);
+  await createProject(answer.file);
 })();
