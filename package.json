@@ -19,7 +19,7 @@
   ],
   "files": [
     "dist",
-    "templates"
+    "template"
   ],
   "author": "sixnames <slava.kirshman@icloud.com>",
   "license": "MIT",

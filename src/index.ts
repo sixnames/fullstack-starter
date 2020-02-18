@@ -1,30 +1,32 @@
 #!/usr/bin/env node
 import chalk from 'chalk';
-import path from 'path';
-import fs from 'fs-extra';
-import inquirer from 'inquirer';
-
-const createProject = async (message:string) => {
-  const filePath = path.join(__dirname, `../templates/${message}`);
-  const destinationPath = path.resolve(`./test`);
-  
-  await fs.mkdirpSync(destinationPath);
-  await fs.copySync(filePath, `${destinationPath}/${message}`);
-  console.log(chalk.cyan('DONE'));
-};
+import cp from 'child_process';
+import createProject from './createProject';
 
 (async () => {
-  const answer = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'file',
-      message: 'this is a question',
-      choices: [
-        { name: 'PostgreSQL', value: 'postgresql-server' },
-        { name: 'MongoDB', value: 'api' },
-      ]
-    }
-  ]);
+  try {
+    const projectName = process.argv[2];
   
-  await createProject(answer.file);
+    if (!projectName) {
+      console.log(chalk.red('No project name was provided.'));
+      return;
+    }
+  
+    console.log(chalk.cyan(`Creating project in ${projectName}`));
+    await createProject(projectName);
+  
+    console.log(chalk.cyan(`Installing packages...`));
+    const packages = cp.spawn('npm', ['install'], { cwd: projectName, stdio: 'inherit' });
+    
+    packages.on('close', (code) => {
+      if (code !== 0) {
+        console.log(chalk.red(`Install process exited with code ${code}`));
+      } else {
+        console.log(chalk.green(`Project created in ${projectName}. Bye!`));
+      }
+    });
+  } catch (e) {
+    console.log(chalk.red(e));
+    process.exit(1);
+  }
 })();
