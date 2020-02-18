@@ -29,9 +29,15 @@
   "homepage": "https://github.com/sixnames/fullstack-starter#readme",
   "bin": "./dist/index.js",
   "devDependencies": {
-    "typescript": "^3.7.5",
+    "@types/fs-extra": "^8.1.0",
+    "@types/inquirer": "^6.5.0",
     "rimraf": "^3.0.2",
+    "ts-jest": "^25.2.0",
     "ts-node-dev": "^1.0.0-pre.44",
-    "ts-jest": "^25.2.0"
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "inquirer": "latest",
+    "fs-extra": "latest"
   }
 }
